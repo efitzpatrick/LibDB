@@ -35,16 +35,19 @@ def sql_execute(sql):
 def basic_response():
     return "It works!" #example
 
-#@app.route('/')
-def template_response():
-    return render_template('login.html', error = error)
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['Email'] != 'admin' or request.form['Password'] != 'admin':
-            error = 'Invalid Credentials. Please try again.'
+        email = request.form['email']
+        sql = "select password from library.user where email='{email}';".format(email = email)
+        correct_password = sql_query(sql)
+        if request.form['password'] != correct_password[0][0]:
+            return str(correct_password[0][0])
         else:
             return redirect(url_for('home'))
     return render_template('login.html', error=error)
@@ -55,7 +58,7 @@ def template_response_with_data():
     print(request.form)
     if "buy-book" in request.form:
         book_id = int(request.form["buy-book"])
-        sql = "delete from book where id={book_id}".format(book_id=book_id)
+        sql = "delete from book where id={book_id};".format(book_id=book_id)
         sql_execute(sql)
     template_data = {}
     sql = "select id, title from book order by title"
