@@ -1,5 +1,3 @@
-use library;
-
 create table user(
   id varchar(20) not null,
   email varchar(255) not null,
