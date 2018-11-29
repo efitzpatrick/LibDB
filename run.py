@@ -5,7 +5,7 @@ import mysql.connector
 # Read configuration from file.
 config = configparser.ConfigParser()
 config.read('config.ini')
-
+user_id = None #will hold user id whene logged in
 # Set up application server.
 app = Flask(__name__)
 
@@ -31,9 +31,9 @@ def sql_execute(sql):
 # For this example you can select a handler function by
 # uncommenting one of the @app.route decorators.
 
-#@app.route('/')
+@app.route('/')
 def basic_response():
-    return "It works!" #example
+    return redirect(url_for('login'))
 
 @app.route('/home')
 def home():
@@ -52,6 +52,33 @@ def login():
             return redirect(url_for('home'))
     return render_template('login.html', error=error)
 
+@app.route('/checkout', methods=['GET', 'POST'])
+def checkout():
+    pass
+
+def on_checkout():
+    pass
+
+@app.route('/forgotpassword', methods=['GET', 'POST'])
+def forgotpassword():
+    pass
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if user_id is None:
+        return redirect(url_for('login'))
+    else:
+        profile_info_sql = "select name, email, address from library.user where user_id = {user_id};".format(user_id = user_id)
+        profile_info_list= sql_query(profile_info_sql)[0]
+        books_sql = "select title, status from books where status = 'checked_out' and owner  = {user_id};".format(user_id= user_id)
+        books_info = sql_query(books_sql)
+        return str(profile_info_list, " ", books_info)
+        #profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
+        #return render_template('profile.html', profile_info = profile_info)
+
+@app.route('/results', methods=['GET', 'POST'])
+def results():
+    pass
 
 @app.route('/', methods=['GET', 'POST'])
 def template_response_with_data():
@@ -68,3 +95,4 @@ def template_response_with_data():
 
 if __name__ == '__main__':
     app.run(**config['app'])
+{}
