@@ -1,3 +1,7 @@
+
+
+
+
 create table user(
   id varchar(20) not null,
   email varchar(255) not null,
@@ -20,21 +24,32 @@ INSERT INTO user(id, email, address, name, username, password, privileges, balan
 
 
 create table cart(
-   id int not null,
-   book_id varchar(20) not null,
-   book_title varchar(255) not null);
+   user_id varchar(20) not null,
+   book_sku varchar(255) not null);
 
 
 create table book(
    id varchar(20) not null,
-   title varchar(255) not null);
+   title varchar(255) not null,
+   author varchar(255) not null,
+   quantity int not null,
+   status varchar(255) default 'In stock',
+   owner varchar(255) default null,
+   cart_id varchar(255) default null);
+
+insert into book(id, title, author, quantity) values
+  ('10000', 'Harry Potter', 'J.K Rowling', 4);
+  ('10001', 'DRM348532', 'The Charlottes Web', 'E.B White', 2);
+  ('10002', 'FTS593234', 'Eragon', 'Christopher Paolini', 1);
+  ('10003', 'CS343245', 'Database Systems', 'Eamon Johnson', 1);
 
 
-create table author(
-   id varchar(20),
-   name varchar(255) not null);
 
+//Queries
 
-create table info(
-   id varchar(10),
-   publisher varchar(30) not null);
+/* search book by title or author */
+select id from book where title = {searched title} or author = {searched author};
+
+/* add book to cart */
+insert into book(status, owner, cart_id) VALUES
+  ('')
