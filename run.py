@@ -35,9 +35,15 @@ def sql_execute(sql):
 def basic_response():
     return redirect(url_for('login'))
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html')
+    error=None
+    if request.method == 'POST':
+        search = request.form['search_input']
+        search_sql = "select id from books where title = {search} or author = {search};".format(search = search)
+        search_info = sql_query(search_sql)
+        return string(search_info)
+    return render_template('homeretry.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -80,7 +86,7 @@ def profile():
 def results():
     pass
 
-@app.route('/', methods=['GET', 'POST'])
+#@app.route('/', methods=['GET', 'POST'])
 def template_response_with_data():
     print(request.form)
     if "buy-book" in request.form:
