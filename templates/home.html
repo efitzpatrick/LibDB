@@ -24,7 +24,7 @@
                                 <a class="nav-link" href="home.html">Menu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="results.html">Results</a>
+                                <a class="nav-link" href="search.html">Search</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profile.html">User Profile</a>
@@ -48,53 +48,58 @@
                     <div class="row">
                       
                       <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for books" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Filter by</label>
-                                    <select class="form-control">
-                                        <option value="0" selected>All Books</option>
-                                        <option value="1">Featured</option>
-                                        <option value="2">Most popular</option>
-                                        <option value="3">Top rated</option>
-                                        <option value="4">Most commented</option>
-                                    </select>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Genre</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Book ID</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Author</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Date</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">Publisher</label>
-                                    <input class="form-control" type="text" />
-                                  </div>
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">?</span></button>
-                                </form>
+                            <!DOCTYPE html>
+                            <html>
+                            <head>
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                            <style>
+                            body {
+                                font-family: Arial;
+                            }
+                            
+                            * {
+                                box-sizing: border-box;
+                            }
+                            
+                            form.example input[type=text] {
+                                padding: 10px;
+                                font-size: 17px;
+                                border: 1px solid grey;
+                                float: left;
+                                width: 80%;
+                                background: #f1f1f1;
+                            }
+                            
+                            form.example button {
+                                float: left;
+                                width: 20%;
+                                padding: 10px;
+                                background: #2196F3;
+                                color: white;
+                                font-size: 17px;
+                                border: 1px solid grey;
+                                border-left: none;
+                                cursor: pointer;
+                            }
+                            
+                            form.example button:hover {
+                                background: #0b7dda;
+                            }
+                            
+                            form.example::after {
+                                content: "";
+                                clear: both;
+                                display: table;
+                            }
+                            </style>
+                            </head>
+                            <body>
+                            <form class="example" action="" method="POST">
+                              <input type="text" placeholder="Search.." name="search">
+                              <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
                             </div>
-                        </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Search</span></button>
-                    </div>
-                </div>
-            </div>
-          </div>
         
 	
 
