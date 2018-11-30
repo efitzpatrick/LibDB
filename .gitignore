@@ -4,5 +4,5 @@ systemRequirements.txt
 codeiwanttosave.txt
 *.pyc
 *.ini
-\venv
-\__pycache__
+/venv/
+/__pycache__/
