@@ -90,6 +90,16 @@ def profile():
         profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
         return render_template('profile.html', profile_info = profile_info, books = books_info, privilege = my_user.get_privilege())
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    global my_user
+    if my_user is None:
+        return redirect(url_for('login'))
+    elif !my_user.get_privilege:
+        return redirect(url_for('home'))
+    else:
+        return render_template('admin.html', privilege = my_user.get_privilege())
+
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     global my_user
@@ -123,6 +133,24 @@ def createuser():
     #if yes: flash "already in use" and redirect to login page
     #if no: flash "user created" add in
     pass
+
+@app.route('/admin/create_book', methods=['GET', 'POST'])
+def create_book():
+    global my_user
+    if request.method == 'POST':
+        # Get all details from form
+        id = request.form['id'].strip()
+        sku = request.form['sku'].strip()
+        title = request.form['title'].strip()
+        author = request.form['author'].strip()
+
+        # Update database
+        sql = "insert into book(id, sku, title, author) values ('{id}', '{sku}', '{title}', '{author}');".format(id=id, sku=sku, title=title, author=author)
+        sql_execute(sql)
+        return redirect(url_for('admin'))
+
+    return render_template('createbook.html', privilege = my_user.get_privilege)
+
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
