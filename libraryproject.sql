@@ -55,17 +55,9 @@ create table status(
   availability varchar(255) not null default 'available',
   start_date int,
   return_date int,
-<<<<<<< HEAD
-  rate numeric(2,2),
-=======
-  rate decimal(4,2) not null,
->>>>>>> fcc5a4f3efaaf262b11f602f1801f6604bb92377
-  num_times_rented int default 0
-  FOREIGN KEY (book_sku) REFERENCES book (sku)
-);
+  rate decimal(4,2),
+  num_times_rented int default 0);
 
-<<<<<<< HEAD
-=======
 insert into status(id, book_sku, availability) VALUES
   ('123456', 'CS343245', 'available'),
   ('123457', 'FIC394584', 'available'),
@@ -73,11 +65,10 @@ insert into status(id, book_sku, availability) VALUES
 
 update book set owner = "eef33" where sku = 'CS343245';
 update book set owner = "hxk443" where sku = 'FIC394584';
-update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
-update status set availability = 'unavailable', start_date = 11012018, return_date - 11222018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
+update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.00, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
+update status set availability = 'unavailable', start_date = 11012018, return_date = 11222018, rate = 10.89, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
 
-DROP TABLE IF EXISTS 'has_status';
->>>>>>> fcc5a4f3efaaf262b11f602f1801f6604bb92377
+
 create table has_status(
   book_sku varchar(255) not null,
   status_id varchar(20) not null
