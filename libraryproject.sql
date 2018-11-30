@@ -1,4 +1,4 @@
-use library;
+use team20;
 
 
 DROP TABLE IF EXISTS `user`;
@@ -28,6 +28,7 @@ create table cart(
    user_id varchar(20) not null,
    book_sku varchar(255) not null);
 
+
 DROP TABLE IF EXISTS `book`;
 create table book(
    id varchar(20) not null,
@@ -36,6 +37,17 @@ create table book(
    author varchar(255) not null,
    owner varchar(255) default null,
    cart_id varchar(255) default null);
+
+DROP TABLE IF EXISTS `status`;
+  create table status(
+     id varchar(20) not null,
+     book_sku varchar(255) not null,
+     availability varchar(255) not null default 'available',
+     start_date int,
+     return_date int,
+     rate decimal(4,2) not null default 10.00,
+     num_times_rented int default 0);
+
 
 insert into book(id, sku, title, author) values
   ('10000', 'FTS123440', 'Harry Potter', 'J.K Rowling'),
@@ -49,32 +61,13 @@ insert into book(id, sku, title, author) values
   ('10007', 'FTS304859', 'Murder on the Orient Express', 'Agatha Christie'),
   ('10008', 'FIC394584', '1984', 'George Orwell');
 
-create table status(
-  id varchar(20) not null,
-  book_sku varchar(255) not null,
-  availability varchar(255) not null default 'available',
-  start_date int,
-  return_date int,
-  rate decimal(4,2),
-  num_times_rented int default 0);
 
 insert into status(id, book_sku, availability) VALUES
   ('123456', 'CS343245', 'available'),
   ('123457', 'FIC394584', 'available'),
   ('123458', 'FTS392741', 'available');
 
-update book set owner = "eef33" where sku = 'CS343245';
-update book set owner = "hxk443" where sku = 'FIC394584';
-update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.00, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
-update status set availability = 'unavailable', start_date = 11012018, return_date = 11222018, rate = 10.89, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
-
-
-create table has_status(
-  book_sku varchar(255) not null,
-  status_id varchar(20) not null
-);
-
-insert into has_status(book_sku, status_id) VALUES
-  ('CS343245', '123456'),
-  ('FIC394584', '123457'),
-  ('FTS392741','123458');
+update book set owner = "12346" where sku = 'CS343245';
+update book set owner = "12347" where sku = 'FIC394584';
+update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
+update status set availability = 'unavailable', start_date = 11012018, return_date = 11222018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
