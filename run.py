@@ -72,7 +72,6 @@ def login():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-<<<<<<< HEAD
     if user_id is None:
         return redirect(url_for('login'))
     else:
@@ -83,18 +82,6 @@ def checkout():
         #tuple should be (book.title, book.duedate)
         books_in_cart = dict(books_in_cart)
         return render_template('checkout.html', books=books_in_cart)
-=======
-    #if user_id is None:
-        #return redirect(url_for('login'))
-    #else:
-        #sql = #sql query for finding user's books in their cart
-        #books_in_cart = #sql_query(sql)
-
-        #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
-        #tuple should be (book.title, book.duedate)
-        #books_in_cart = dict(books_in_cart) 
-        #return render_template('checkout.html' books=books_in_cart)
->>>>>>> fcc5a4f3efaaf262b11f602f1801f6604bb92377
     pass
 
 def on_checkout():
@@ -106,12 +93,12 @@ def on_checkout():
 
 @app.route('/createuser', methods=['GET', 'POST'])
 def createuser():
-    #Take data from the field 
+    #Take data from the field
     #check if data from username field is already in databse
     #if yes: flash "already in use" and redirect to login page
-    #if no: flash "user created" add in 
+    #if no: flash "user created" add in
     pass
-    
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
@@ -129,7 +116,7 @@ def profile():
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
         profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
-        render_template('profile.html', profile_info = profile_info, books = books_info)
+        return render_template('profile.html', profile_info = profile_info, books = books_info)
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
