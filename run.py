@@ -75,13 +75,13 @@ def checkout():
     if user_id is None:
         return redirect(url_for('login'))
     else:
-        sql = #sql query for finding user's books in their cart
-        books_in_cart = #sql_query(sql)
+        sql = ""#sql query for finding user's books in their cart
+        books_in_cart = ""#sql_query(sql)
 
         #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
         #tuple should be (book.title, book.duedate)
-        books_in_cart = dict(books_in_cart) 
-        return render_template('checkout.html' books=books_in_cart)
+        books_in_cart = dict(books_in_cart)
+        return render_template('checkout.html', books=books_in_cart)
     pass
 
 def on_checkout():
@@ -101,14 +101,13 @@ def profile():
         user_id = my_user.get_id()
         profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
-        books_sql = "select id from book b inner join status s on b.sku = s.book_sku where availablity = 'unavailable' and b.owner  = '{user_id}';".format(user_id= user_id)
+        books_sql = "select sku from book b inner join status s on b.sku = s.book_sku where availability = 'unavailable' and b.owner  = '{user_id}';".format(user_id= user_id)
         books_info = sql_query(books_sql)
         result = str(profile_info_list), " ", str(books_info)
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
         profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
-
-        #render_template('profile.html', profile_info = profile_info, books = books)
+        render_template('profile.html', profile_info = profile_info, books = books_info)
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():

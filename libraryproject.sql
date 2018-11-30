@@ -1,4 +1,4 @@
-use team20;
+use library;
 
 
 DROP TABLE IF EXISTS `user`;
@@ -49,18 +49,16 @@ insert into book(id, sku, title, author) values
   ('10007', 'FTS304859', 'Murder on the Orient Express', 'Agatha Christie'),
   ('10008', 'FIC394584', '1984', 'George Orwell');
 
-DROP TABLE IF EXISTS 'status';
 create table status(
   id varchar(20) not null,
   book_sku varchar(255) not null,
   availability varchar(255) not null default 'available',
   start_date int,
   return_date int,
-  rate numeric(2,2) default 2.50,
+  rate numeric(2,2),
   num_times_rented int default 0
 );
 
-DROP TABLE IF EXISTS 'has_status';
 create table has_status(
   book_sku varchar(255) not null,
   status_id varchar(20) not null
