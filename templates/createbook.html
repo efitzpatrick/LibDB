@@ -27,6 +27,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="login.html">Logout</a>
                             </li>
+                            {% if privilege %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="adminpage">Administrator Page</a>
+                            </li>
+                            {% endif %}
                           </ul>
                         </div>
                 </nav>
@@ -38,7 +43,7 @@
              <h2 align="center">Add Book</h2>
               <div class="row">
 
-                    <form class="form-horizontal"role="form">
+                    <form class="form-horizontal"role="form" action="" method="post">
                                   <div class="form-group">
                                     <label for="contain">Book ID</label>
                                     <input name="book_id" class="form-control" type="text" placeholder="23487"/>
