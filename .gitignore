@@ -6,3 +6,4 @@ codeiwanttosave.txt
 *.ini
 /venv/*
 /__pycache__/*
+__pycache__/run.cpython-35.pyc
