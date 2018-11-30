@@ -56,12 +56,28 @@ create table status(
   availability varchar(255) not null default 'available',
   start_date int,
   return_date int,
-  rate numeric(2,2) default 2.50,
+  rate decimal(4,2) not null,
   num_times_rented int default 0
+  FOREIGN KEY (book_sku) REFERENCES book (sku)
 );
+
+insert into status(id, book_sku, availability) VALUES
+  ('123456', 'CS343245', 'available'),
+  ('123457', 'FIC394584', 'available'),
+  ('123458', 'FTS392741', 'available');
+
+update book set owner = "eef33" where sku = 'CS343245';
+update book set owner = "hxk443" where sku = 'FIC394584';
+update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
+update status set availability = 'unavailable', start_date = 11012018, return_date - 11222018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
 
 DROP TABLE IF EXISTS 'has_status';
 create table has_status(
   book_sku varchar(255) not null,
   status_id varchar(20) not null
 );
+
+insert into has_status(book_sku, status_id) VALUES
+  ('CS343245', '123456'),
+  ('FIC394584', '123457'),
+  ('FTS392741','123458');
