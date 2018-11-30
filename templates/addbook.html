@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Book</title>
+        <meta charset="utf-8">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link href="https://bootswatch.com/4/journal/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0A304E;">
+                    <a class="navbar-brand" href="homeretry.html">Search</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                            <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile.html">User Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="checkout.html">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="login.html">Logout</a>
+                            </li>
+                          </ul>
+                        </div>
+                </nav>
+        <div class="container">
+             <br>
+             <h1 align="center">CWRU LibDB</h1>
+              <hr/>
+
+             <h2 align="center">Add Book</h2>
+              <div class="row">
+                  
+                    <form class="form-horizontal"role="form">
+                                  <div class="form-group">
+                                    <label for="contain">Book ID</label>
+                                    <input class="form-control" type="text" placeholder="23487"/>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Book SKU</label>
+                                    <input class="form-control" type="text" placeholder="RUS7339" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Title</label>
+                                    <input class="form-control" type="text" placeholder="'King Lear'" />
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">Author</label>
+                                    <input class="form-control" type="text" placeholder="Shakespeare, William" />
+                                  </div>
+                                    <form method=post>
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true">Add</span></button>
+                                </form>
+            </div>
+        </div>
+    </body>
+</html>
+        
