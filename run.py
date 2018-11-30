@@ -49,7 +49,7 @@ def home():
             search_sql = "select id from book where title = '{search}' or author = '{search}';".format(search = search)
             search_info = sql_query(search_sql)
             return str(search_info)
-    return render_template('homeretry.html', error=error)
+    return render_template('homeretry.html', error=error, privilege = my_user.get_privilege())
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -63,12 +63,14 @@ def login():
             flash("incorrect password")
             #return str(correct_password[0][0])
         else:
-            user_id_sql = "select id from library.user where email='{email}';".format(email=email)
-            user_id = sql_query(user_id_sql)[0][0]
-            my_user = User(user_id, email)
+            user_id_sql = "select id, privilege from library.user where email='{email}';".format(email=email)
+            user_id_result = sql_query(user_id_sql)[0]
+            user_id = user_id_result[0]
+            privilege = user_id_result[1]
+            my_user = User(user_id, email, privilege)
             return redirect(url_for('home'))
 
-    return render_template('login.html', error=error)
+    return render_template('login.html', error=error, privilege = my_user.get_privilege())
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
@@ -110,7 +112,7 @@ def profile():
         user_id = my_user.get_id()
         profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
-        books_sql = "select sku from book b inner join status s on b.sku = s.book_sku where availability = 'unavailable' and b.owner  = '{user_id}';".format(user_id= user_id)
+        books_sql = "select title, return_date from book b inner join status s on b.sku = s.book_sku where availability = 'unavailable' and b.owner  = '{user_id}';".format(user_id= user_id)
         books_info = sql_query(books_sql)
         result = str(profile_info_list), " ", str(books_info)
         #return str(result)
