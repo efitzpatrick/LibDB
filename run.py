@@ -131,7 +131,7 @@ def createuser():
     #Take data from the field
     #check if data from username field is already in databse
     #if yes: flash "already in use" and redirect to login page
-    #if no: flash "user created" add in
+    #if no: flash "user created" add in database
     pass
 
 @app.route('/admin/create_book', methods=['GET', 'POST'])
@@ -151,6 +151,18 @@ def create_book():
 
     return render_template('createbook.html', privilege = my_user.get_privilege)
 
+@app.route('/admin/delete_book', methods['POST'])
+def delete_book():
+    global my_user
+    if request.method == 'POST':
+        #get sku from form
+        sku = request.form['booksku'].strip()
+
+        #update database
+        #sql = sql to delete book from database
+        #sql_execute(sql)
+        return str(sku)
+        #return redirect(url_for('admin'))
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
