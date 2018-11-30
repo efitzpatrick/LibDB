@@ -4,5 +4,6 @@ systemRequirements.txt
 codeiwanttosave.txt
 *.pyc
 *.ini
-\venv
-\__pycache__
+/venv/*
+/__pycache__/*
+__pycache__/run.cpython-35.pyc
