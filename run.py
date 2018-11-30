@@ -64,24 +64,33 @@ def login():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    if user_id is None:
-        return redirect(url_for('login'))
-    else:
-        sql = #sql query for finding user's books in their cart
-        books_in_cart = #sql_query(sql)
+    #if user_id is None:
+        #return redirect(url_for('login'))
+    #else:
+        #sql = #sql query for finding user's books in their cart
+        #books_in_cart = #sql_query(sql)
 
         #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
         #tuple should be (book.title, book.duedate)
-        books_in_cart = dict(books_in_cart) 
-        return render_template('checkout.html' books=books_in_cart)
+        #books_in_cart = dict(books_in_cart) 
+        #return render_template('checkout.html' books=books_in_cart)
     pass
 
 def on_checkout():
+    #book's cart id gets set to null
+    #book's user id is populated by user_id
+    #insert back into database
+    #redirect to profile
     pass
 
 @app.route('/createuser', methods=['GET', 'POST'])
-def forgotpassword():
+def createuser():
+    #Take data from the field 
+    #check if data from username field is already in databse
+    #if yes: flash "already in use" and redirect to login page
+    #if no: flash "user created" add in 
     pass
+    
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
