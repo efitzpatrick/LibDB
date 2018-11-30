@@ -37,6 +37,7 @@ def basic_response():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+    
     error=None
     if request.method == 'POST':
         search = request.form['search_input']
@@ -63,12 +64,22 @@ def login():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
+    if user_id is None:
+        return redirect(url_for('login'))
+    else:
+        sql = #sql query for finding user's books in their cart
+        books_in_cart = #sql_query(sql)
+
+        #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
+        #tuple should be (book.title, book.duedate)
+        books_in_cart = dict(books_in_cart) 
+        return render_template('checkout.html' books=books_in_cart)
     pass
 
 def on_checkout():
     pass
 
-@app.route('/forgotpassword', methods=['GET', 'POST'])
+@app.route('/createuser', methods=['GET', 'POST'])
 def forgotpassword():
     pass
 
