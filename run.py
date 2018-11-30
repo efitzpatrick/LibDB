@@ -49,13 +49,16 @@ def home():
 def login():
     error = None
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['email'].strip()
         sql = "select password from library.user where email='{email}';".format(email = email)
         correct_password = sql_query(sql)
         if request.form['password'] != correct_password[0][0]:
             return str(correct_password[0][0])
         else:
+            user_id_sql = "select id from library.user where email='{email}';".format(email=email)
+            user_id = sql_query(user_id_sql)[0][0]
             return redirect(url_for('home'))
+
     return render_template('login.html', error=error)
 
 @app.route('/checkout', methods=['GET', 'POST'])
@@ -74,9 +77,9 @@ def profile():
     if user_id is None:
         return redirect(url_for('login'))
     else:
-        profile_info_sql = "select name, email, address from library.user where user_id = {user_id};".format(user_id = user_id)
+        profile_info_sql = "select name, email, address from library.user where user_id = '{user_id}'';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
-        books_sql = "select title, status from books where status = 'checked_out' and owner  = {user_id};".format(user_id= user_id)
+        books_sql = "select title, status from books where status = 'checked_out' and owner  = '{user_id}';".format(user_id= user_id)
         books_info = sql_query(books_sql)
         return str(profile_info_list, " ", books_info)
         #profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
