@@ -3,3 +3,4 @@ testSQL.sql
 systemRequirements.txt
 \venv
 config.ini
+\__pycache__
