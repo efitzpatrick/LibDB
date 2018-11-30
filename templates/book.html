@@ -37,36 +37,34 @@
                     <h1 align="center">CWRU LibDB</h1>
                     <hr/>
 
-                    <h2 align="center">{{book.title}}</h2>
+                    <h2 align="left">{{book.title}}</h2>
                   <hr/>
                     <div class="row">
                       
                       <div class="col-md-12 col-xs-12" align="left">
             <div class="outter"><img src="https://openclipart.org/download/4151/dniezby-Generic-Book.svg" width="125" height="175" /></div>   
             <br />
-                        <h4>Info</h4>
+                        <h4>Book Info: </h4>
                         
                         <div align="left">
 
                   <div class="col-xs-2">
-                    <div style="color: orange;">
-                      ID:
+                    <div>
+                        <font color="orange">ID: </font> {{book.id}}
                     </div>
-                    {{book.id}}
-                    <div style="color: orange;">
-                      Quantity available:
+                    <div>
+                        <font color="orange">Quantity available: </font> {{book.Quantity}}
                     </div>
-                    {{book.Quantity}}
-                    <div style="color: orange;">
-                      Title:
+                    
+                    <div>
+                        <font color="orange"> Title: </font> {{book.title}}
                     </div>
-                    {{book.title}}
-                    <div style="color: orange;">
-                      Author:
+                    
+                    <div>
+                        <font color="orange">Author: </font> {{book.author}} 
                     </div>
-                    {{book.author}}
                     </div>
-                          <a href="checkout.html" ><img src="https://i.imgur.com/b2yMsmr.png" width="100" height="25"/></a>
+                          <a href="checkout" ><img src="https://i.imgur.com/b2yMsmr.png" width="100" height="25"/></a>
                 </div>
                       
                   </div>
