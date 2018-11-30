@@ -133,75 +133,53 @@
                              <li class="nav-item">
                                 <a class="nav-link" href="logout">Logout</a>
                             </li>
-                            {% if privilege %}
                             <li class="nav-item">
-                                <a class="nav-link" href="adminpage">Administrator Page</a>
-                            </li>
-                            {% endif %}
+                                    <a class="nav-link" href="adminpage">Administrator Page</a>
+                                </li>
                           </ul>
                         </div>
                 </nav>
         
                 <div  class="container">
                     <br>
-                    <h1 align="center">CWRU LibDB</h1>
+                    <h1 text-align="center">CWRU LibDB</h1>
                     <hr/>
                     <div class="row">
 	    <div class="col-md-12 col-xs-12" align="center">
             <div class="outter"><img src="https://upload.wikimedia.org/wikipedia/en/7/72/Case_Western_Reserve_University_Spartans_logo_mascot.png" class="image-circle"/></div>   
-            <h1>Hello, {{profile_info.name}}</h1>
+            <h1>Hello Admin, {{profile_info.name}}</h1>
             
         </div>
-        
-        
-        
-        <div class="w-25 login_control">
-                
-                <div class="control">
-                  <div class="label">Contact</div>
-                  <div class="label2">
-                    Name:
-                  </div>
-                    <p>{{profile_info.name}}</p>
-                  <div class="label2">
-                    Email:   
-                  </div>
-                    <p>{{profile_info.email}}</p>
-                  <div class="label2">
-                    Address:
-                  </div>
-                    <p>{{profile_info.address}}</p>
-                  </div>  
-                    
-          </div>
-                      
-        <div class="w-75 login_control">
-                
-                <div class="control">
-                    <div class="label">Balance: </div>
-                      {{profile_info.balance}}
-                  <div class="label">Status: </div>
-                      	
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Book Name</th>
-      <th scope="col">Due Date</th>
-    </tr>
-  </thead>
-  <tbody>
-      <ul>
-       {% for book in books %}
-        <td>{{book[0]}}</td>   
-        <td>{{book[1]}}</td>  
-       {% endfor %}
-      </ul>
-  </tbody>
-</table>
-                      
-                  </div>  
-                    
-          </div>
+        <div class="col-md-4" text-align="center"></div>
+        <head>
+         <style type="text/css">
+         body {
+            text-align: center;
+            }
+        form {
+            text-align: center;
+            display: inline-block;
+            
+        }
+        input {
+            padding: 12px 20px;
+            margin: 8px 0;
+        }
+        </style>
+        </head>
+        <div style="text-align: center">
+        <form action="" method="post">
+            <input class="button" type="submit" value="Add Book" >
+        </form>
+        <form action="" method="post">
+            <input class="button" type="submit" value="Delete Book">
+        </form>
+        <form action="" method="post">
+            <input class="button" type="submit" value="Statistics" >
+        </form>
+    </div>
+    </div>
+
                     
                 </div>
                 

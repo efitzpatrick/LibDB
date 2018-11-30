@@ -29,6 +29,11 @@
                               <li class="nav-item">
                                 <a class="nav-link" href="logout">Logout</a>
                             </li>
+                            {% if privilege %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="adminpage">Administrator Page</a>
+                            </li>
+                            {% endif %}
                           </ul>
                         </div>
                 </nav>
