@@ -2,5 +2,6 @@ userScripting.txt
 testSQL.sql
 systemRequirements.txt
 \venv
+*.pyc
 config.ini
 \__pycache__
