@@ -27,49 +27,12 @@
                                 <a class="nav-link" href="checkout.html">Cart</a>
                             </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="login.html">Logout</a>
+                                <a class="nav-link" href="logout.html">Logout</a>
                             </li>
                           </ul>
                         </div>
                 </nav>
-        
-                <div class="container">
-                    <br>
-                    <h1 align="center">CWRU LibDB</h1>
-                    <hr/>
-
-                    <h2 align="center">Cart Checkout</h2>
-                  
-                  <div class="row">
-                    
-                    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Book Name</th>
-      <th scope="col">Due Date</th>
-    </tr>
-  </thead>
-  <tbody>
-      <ul>
-       {% for book in profile_info.books %}
-        <td>{{book.title}}</td>   
-        <td>{{book.date}}</td>  
-       {% endfor %}
-      </ul>
-  </tbody>
-</table>
-                    <form action="" method="post">
-                      <input type="submit" value="Checkout">  
-                    </form>
-                    
-                  </div>
-                  
-                  
-                  
-                  
-                  
-                  
-                  
+                {% block content %}{% endblock %}
                 <footer class="footer fixed-bottom">
                         <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #0A304E;">
                                 <div class="" id="navbarColor01">
