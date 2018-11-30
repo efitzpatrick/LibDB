@@ -1,4 +1,4 @@
-use library;
+use team20;
 
 
 DROP TABLE IF EXISTS `user`;
@@ -24,6 +24,7 @@ INSERT INTO user(id, email, address, name, username, password, privilege, balanc
 
 DROP TABLE IF EXISTS `cart`;
 create table cart(
+   id varchar(20) not null,
    user_id varchar(20) not null,
    book_sku varchar(255) not null);
 
@@ -33,13 +34,34 @@ create table book(
    sku varchar(255) not null,
    title varchar(255) not null,
    author varchar(255) not null,
-   status varchar(255) default 'available',
    owner varchar(255) default null,
    cart_id varchar(255) default null);
 
 insert into book(id, sku, title, author) values
   ('10000', 'FTS123440', 'Harry Potter', 'J.K Rowling'),
+  ('10000', 'FTS123441', 'Harry Potter', 'J.K Rowling'),
   ('10001', 'DRM348532', 'The Charlottes Web', 'E.B White'),
   ('10002', 'FTS593234', 'Eragon', 'Christopher Paolini'),
   ('10003', 'CS343245', 'Database Systems', 'Eamon Johnson'),
-  ('10000', 'FTS123441', 'Harry Potter', 'J.K Rowling');
+  ('10004', 'FIC234123', 'Tuesdays with Morrie', 'Mitch Albom'),
+  ('10005', 'FIC948719', 'The Kite Runner', 'Khaled Hosseini'),
+  ('10006', 'FTS392741', 'Lord of the Rings', 'J. R. R. Tolkien'),
+  ('10007', 'FTS304859', 'Murder on the Orient Express', 'Agatha Christie'),
+  ('10008', 'FIC394584', '1984', 'George Orwell');
+
+DROP TABLE IF EXISTS 'status';
+create table status(
+  id varchar(20) not null,
+  book_sku varchar(255) not null,
+  availability varchar(255) not null default 'available',
+  start_date int,
+  return_date int,
+  rate numeric(2,2) default 2.50,
+  num_times_rented int default 0
+);
+
+DROP TABLE IF EXISTS 'has_status';
+create table has_status(
+  book_sku varchar(255) not null,
+  status_id varchar(20) not null
+);
