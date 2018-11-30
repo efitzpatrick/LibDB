@@ -11,35 +11,20 @@
     </head>
     <body>
 
-            <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #0A304E;">
-                    <a class="navbar-brand" href="#">Home</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-        
-                    <div class="collapse navbar-collapse" id="navbarColor01">
-                            <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="homeretry.html">Menu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="homeretry.html">Search</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="book.html">Book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="profile.html">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="checkout.html">Cart</a>
-                            </li>
-                              <li class="nav-item">
-                                <a class="nav-link" href="logout.html">Logout</a>
-                            </li>
-                          </ul>
-                        </div>
-                </nav>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0A304E;">
+                <style>
+                    a { color: #c9c9c9; } /* CSS link color */
+                </style>
+                <div>
+                    <a href="{{ url_for('index') }}">Search</a>
+                    {% if current_user.is_anonymous %}
+                    <a href="{{ url_for('login') }}">Login</a>
+                    {% else %}
+                    <a href="{{ url_for('profile', username=current_user.username) }}">User Profile</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                    {% endif %}
+                </div>
+            </nav>
         
                 <div  class="container">
                     <br>
@@ -94,16 +79,6 @@
                       
                     
                 </div>
-                <footer class="footer fixed-bottom">
-                        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0A304E;">
-                                <div class="" id="navbarColor01">
-                                    <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <p class="nav-link" href="#">All rights reserved&trade;</p>
-                                    </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                </footer>
+
     </body>
 </html>

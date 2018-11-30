@@ -32,26 +32,7 @@
                           </ul>
                         </div>
                 </nav>
-        
-                {% from "_formhelpers.html" import render_field %}
-                <form method=post>
-                    <dl>
-                        {{render_field(form.select)}}
-                        <p>
-                        {{render_field(form.search)}}
-                    </dl>
-                    <p><input type=submit value=Search>
-                </form>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul class=flashes>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
-
+                {% block content %}{% endblock %}
                 <footer class="footer fixed-bottom">
                         <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #0A304E;">
                                 <div class="" id="navbarColor01">
