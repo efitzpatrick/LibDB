@@ -1,4 +1,4 @@
-use library;
+use team20;
 
 
 DROP TABLE IF EXISTS `user`;
@@ -13,7 +13,7 @@ create table user(
   balance numeric(4,2) not null DEFAULT 0);
 
 
-INSERT INTO user(id, email, address, name, username, password, privilege, balance) VALUES
+INSERT INTO user(id, email, address, name, username, password, privileges, balance) VALUES
     ('10000', 'libadmin@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin1', 'libadmin', 'libraryrox', 'admin', 0),
     ('10001', 'libadmin2@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin2', 'libadmin2', 'libraryrox', 'admin', 0),
     ('12345', 'jxk807@case.edu', '1728 E 116th st, Cleveland, OH', 'Jae Yong Kim', 'jxk807', 'mypwd123', 'student', 10.50),
