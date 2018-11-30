@@ -24,7 +24,7 @@
                                 <a class="nav-link" href="home.html">Menu</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="homeretry.html">Search</a>
+                                <a class="nav-link" href="search.html">Search</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="profile.html">User Profile</a>
@@ -33,60 +33,31 @@
                                 <a class="nav-link" href="checkout.html">Cart</a>
                             </li>
                               <li class="nav-item">
-                                <a class="nav-link" href="login.html">Logout</a>
+                                <a class="nav-link" href="logout.html">Logout</a>
                             </li>
                           </ul>
                         </div>
                 </nav>
         
-                <div  class="container">
-                    <br>
-                    <h1 align="center">CWRU LibDB</h1>
-                    <hr/>
+                {% from "_formhelpers.html" import render_field %}
+                <form method=post>
+                    <dl>
+                        {{render_field(form.select)}}
+                        <p>
+                        {{render_field(form.search)}}
+                    </dl>
+                    <p><input type=submit value=Search>
+                </form>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
 
-                    <h2 align="center">Results</h2>
-                    <div class="row">
-
-    
-                    <div class="col col-md-6" style="margin:auto">
-                    <hr>
-
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Book Name</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Rating</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Book 1</td>
-                          <td>Out</td>
-                          <td>88%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>Book 2</td>
-                          <td>Available</td>
-                          <td>74%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Book 3</td>
-                          <td>Available</td>
-                          <td>92%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </div>
-
-                    
-                </div>
-                    
-                </div>
                 <footer class="footer fixed-bottom">
                         <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #0A304E;">
                                 <div class="" id="navbarColor01">
