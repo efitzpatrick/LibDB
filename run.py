@@ -83,12 +83,16 @@ def profile():
         print(user_id)
         profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
+        #print(profile_info_list)
         #availability = 'unavailable' and
-        books_sql = "select title, return_date from book b inner join status s on b.sku = s.book_sku where b.owner = {user_id};".format(user_id= user_id)
+        #select title, return_date from book b inner join status s on b.sku = s.book_sku where b.owner = {user_id};
+        books_sql = "select title, return_date from library.book b inner join library.status s on b.sku = s.book_sku where b.owner = {user_id};".format(user_id= user_id)
         books_info = sql_query(books_sql)
+        #print(books_info)
+        print(sql_query("select title, return_date, owner, availability from library.book b inner join library.status s on b.sku = s.book_sku;"))
         result = str(profile_info_list), " ", str(books_info)
-        print(books_info)
-        print(books_sql)
+        #print(books_info)
+        print(sql_query("select title from library.book b where b.owner = {user_id};".format(user_id=user_id)))
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
         profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
@@ -142,6 +146,7 @@ def on_checkout():
     user_id = my_user.get_id()
     sql = "select sku from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
     books_in_cart = sql_query(sql)
+
     for sku in books_in_cart:
         sql = "update book set owner = '{user_id}', cart_id = null where sku = '{sku}';".format(user_id = user_id, sku=sku)  #sql query for finding user's books in their cart
     return redirect(url_for('home'))
@@ -197,11 +202,11 @@ def delete_book():
 def get_statistics():
     global my_user
     sql = "select sum(num_times_rented) from status;"
-    sum_nums = sql_query(sql)
+    sum_nums = str(sql_query(sql))
     sql = "select count(id) from user;"
-    count_user = sql_query(sql)
-    sql = "select avg(balance) from user;"
-    avg_balance = sql_query(sql)
+    count_user = str(sql_query(sql))
+    sql = "select CAST(avg(balance) as DECIMAL(4,2)) from user;"
+    avg_balance = str(sql_query(sql))
     statistics = { 'booksrented': sum_nums,
                    'balance': avg_balance,
                    'users': count_user

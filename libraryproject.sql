@@ -66,8 +66,9 @@ insert into status(id, book_sku, availability) VALUES
   ('123456', 'CS343245', 'available'),
   ('123457', 'FIC394584', 'available'),
   ('123458', 'FTS392741', 'available');
-
-update book set owner = "12346" where sku = 'CS343245';
-update book set owner = "12347" where sku = 'FIC394584';
+update book set owner = '12346' where sku = 'CS343245';
+update book set owner = '12347' where sku = 'FIC394584';
+update book set owner = '12347' where sku = 'FTS392741';
 update status set availability = 'unavailable', start_date = 11272018, return_date = 12172018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'CS343245';
 update status set availability = 'unavailable', start_date = 11012018, return_date = 11222018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'FIC394584';
+update status set availability = 'unavailable', start_date = 11012018, return_date = 11222018, rate = 10.99, num_times_rented = num_times_rented+1 where book_sku = 'FTS392741';
