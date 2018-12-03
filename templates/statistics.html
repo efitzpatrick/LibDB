@@ -38,24 +38,22 @@
                         </div>
                 </nav>
         
-                {% from "_formhelpers.html" import render_field %}
-                <form method=post>
-                    <dl>
-                        {{render_field(form.select)}}
-                        <p>
-                        {{render_field(form.search)}}
-                    </dl>
-                    <p><input type=submit value=Search>
-                </form>
-                {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <ul class=flashes>
-                        {% for message in messages %}
-                            <li>{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
-                {% endwith %}
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Average books out</th>
+                            <th scope="col">Average Balance</th>
+                            <th scope="col">Number of users</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                  <th scope="row">1</th>
+                                  <td>{{stats.booksout}}</td>
+                                  <td>{{stats.balance}}</td>
+                                  <td>{{stats.users}}</td>
+                                </tr>
+                      </table>
 
                 <footer class="footer fixed-bottom">
                         <nav class="navbar navbar-expand-lg navbar-dark"  style="background-color: #0A304E;">

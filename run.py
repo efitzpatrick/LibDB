@@ -106,8 +106,8 @@ def checkout():
     if my_user is None:
         return redirect(url_for('login'))
     else:
-        sql = ""#sql query for finding user's books in their cart
-        books_in_cart = ""#sql_query(sql)
+        sql = "select title, return_date from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+        books_in_cart = sql_query(sql)
 
         #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
         #tuple should be (book.title, book.duedate)
@@ -115,11 +115,16 @@ def checkout():
         return render_template('checkout.html', books=books_in_cart, privilege = my_user.get_privilege())
     pass
 
+@app.route('/checkout',methods=['GET', 'POST'])
 def on_checkout():
-    #book's cart id gets set to null
-    #book's user id is populated by user_id
-    #insert back into database
-    #redirect to profile
+    global my_user
+    user_id = my_user.get_id()
+    sql = "select id from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+    books_in_cart = sql_query(sql)
+    for sku in books_in_cart:
+        sql = "update book set owner = '{user_id}', cart_id = null where sku = '{sku}';".format(user_id = user_id, sku=sku)  #sql query for finding user's books in their cart
+
+    return redirect(url_for('home'))
     pass
 
 @app.route('/results', methods=['GET', 'POST'])
@@ -163,6 +168,11 @@ def delete_book():
         #sql_execute(sql)
         return str(sku)
         #return redirect(url_for('admin'))
+
+@app.route('/admin/get_statistics', methods['POST'])
+def get_statistics():
+    global my_user
+    
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
