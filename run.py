@@ -186,6 +186,17 @@ def delete_book():
 @app.route('/admin/get_statistics', methods['POST'])
 def get_statistics():
     global my_user
+    sql = "select sum(num_times_rented) from status;"
+    sum_nums = sql_query(sql)
+    sql = "select count(id) from user;"
+    count_user = sql_query(sql)
+    sql = "select avg(balance) from user;"
+    avg_balance = sql_query(sql)
+    statistics = { booksrented : sum_nums
+                   balance : avg_balance
+                   users : count_user
+                 }
+    return render_template('statistics.html', privilege = my_user.get_privilege, stats = statistics)
 
     
 
