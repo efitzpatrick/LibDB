@@ -52,18 +52,23 @@
     <tr>
       <th scope="col">Book Name</th>
       <th scope="col">Due Date</th>
+      <th scope="col">Remove From Cart</th>
     </tr>
   </thead>
   <tbody>
       <ul>
-       {% for key,value in books %}
+       {% for key, value, sku in books %}
         <td>{{key}}</td>   
         <td>{{value}}</td>  
+        <td> 
+                <form action="" method="remove">
+                 <input type="submit" name="checkout_button" class="btn btn-primary" value={{sku}}>  
+                </form></td>
        {% endfor %}
       </ul>
   </tbody>
 </table>
-                    <form action="" method="post">
+                    <form action="" method="POST">
                       <input type="submit" value="Checkout">  
                     </form>
                     

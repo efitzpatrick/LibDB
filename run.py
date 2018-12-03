@@ -100,30 +100,40 @@ def admin():
     else:
         return render_template('admin.html', privilege = my_user.get_privilege())
 
-@app.route('/checkout', methods=['GET', 'POST'])
+@app.route('/checkout', methods=['GET', 'POST', 'remove'])
 def checkout():
     global my_user
     if my_user is None:
         return redirect(url_for('login'))
     else:
-        sql = "select title, return_date from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+        sql = "select title, return_date, sku from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
         books_in_cart = sql_query(sql)
 
-        #should turn the list from sql_query into a dict, depending on if books_in_cart is a list of tuples (hopefully)
-        #tuple should be (book.title, book.duedate)
-        books_in_cart = dict(books_in_cart)
+        #new plan: return a tuple of 3 items
+        #tuple should be (book.title, book.duedate, book.sku)
+        #return this as a list, so we can iterate through it.
         return render_template('checkout.html', books=books_in_cart, privilege = my_user.get_privilege())
+    pass
+
+@app.route('/remove',methods='POST')
+def remove_from_cart():
+    global my_user
+    book_to_checkout =request.format['checkout_button']
+    sql = "update book set cart_id = null where sku = '{sku}';".format(sku = book_to_checkout)
+    sql2 = "update status set availability = 'available' where and book_sku = '{sku}';".format(sku = book_to_checkout)
+    sql_execute(sql)
+    sql2(sql_execute)
+
     pass
 
 @app.route('/checkout',methods=['GET', 'POST'])
 def on_checkout():
     global my_user
     user_id = my_user.get_id()
-    sql = "select id from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+    sql = "select sku from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
     books_in_cart = sql_query(sql)
     for sku in books_in_cart:
         sql = "update book set owner = '{user_id}', cart_id = null where sku = '{sku}';".format(user_id = user_id, sku=sku)  #sql query for finding user's books in their cart
-
     return redirect(url_for('home'))
     pass
 
@@ -134,7 +144,11 @@ def results():
 @app.route('/createuser', methods=['GET', 'POST'])
 def createuser():
     #Take data from the field
+    email = request.form['email'].strip()
+    password = request.form['email'].strip()
     #check if data from username field is already in databse
+    id = email.split["@"]
+    id = id[0][3:]
     #if yes: flash "already in use" and redirect to login page
     #if no: flash "user created" add in database
     pass
@@ -172,6 +186,7 @@ def delete_book():
 @app.route('/admin/get_statistics', methods['POST'])
 def get_statistics():
     global my_user
+
     
 
 @app.route('/logout', methods=['GET', 'POST'])
