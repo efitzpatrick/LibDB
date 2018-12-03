@@ -178,10 +178,10 @@ def delete_book():
         sku = request.form['booksku'].strip()
 
         #update database
-        #sql = sql to delete book from database
-        #sql_execute(sql)
-        return str(sku)
-        #return redirect(url_for('admin'))
+        sql = "delete from book where id = '{sku}'".format(sku = sku)
+        sql_execute(sql)
+        #return str(sku)
+        return redirect(url_for('admin'))
 
 @app.route('/admin/get_statistics', methods['POST'])
 def get_statistics():
