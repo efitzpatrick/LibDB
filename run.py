@@ -56,9 +56,9 @@ def login():
             my_user = User(user_id, email, privilege)
             return redirect(url_for('home'))
 
-    return render_template('login.html', error=error, privilege = my_user.get_privilege())
+    return render_template('login.html', error=error)
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/homeretry', methods=['GET', 'POST'])
 def home():
     global my_user
     if my_user is None:
@@ -80,33 +80,43 @@ def profile():
         #redirect(url_for('login'))
     else:
         user_id = my_user.get_id()
+        print(user_id)
         profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
-        books_sql = "select title, return_date from book b inner join status s on b.sku = s.book_sku where availability = 'unavailable' and b.owner  = '{user_id}';".format(user_id= user_id)
+        #availability = 'unavailable' and
+        books_sql = "select title, return_date from book b inner join status s on b.sku = s.book_sku where b.owner = {user_id};".format(user_id= user_id)
         books_info = sql_query(books_sql)
         result = str(profile_info_list), " ", str(books_info)
+        print(books_info)
+        print(books_sql)
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
         profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
         return render_template('profile.html', profile_info = profile_info, books = books_info, privilege = my_user.get_privilege())
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route('/adminpage', methods=['GET', 'POST'])
 def admin():
     global my_user
     if my_user is None:
         return redirect(url_for('login'))
-    elif !my_user.get_privilege:
+    elif not my_user.get_privilege:
         return redirect(url_for('home'))
     else:
-        return render_template('admin.html', privilege = my_user.get_privilege())
+        user_id = my_user.get_id()
+        profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
+        profile_info_list= sql_query(profile_info_sql)[0]
+        profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
+        return render_template('adminpage.html', privilege = my_user.get_privilege(), profile_info=profile_info)
 
 @app.route('/checkout', methods=['GET', 'POST', 'remove'])
 def checkout():
     global my_user
+
     if my_user is None:
         return redirect(url_for('login'))
     else:
-        sql = "select title, return_date, sku from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+        user_id = my_user.get_id()
+        sql = "select title, return_date, sku from book b inner join status s on b.sku = s.book_sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
         books_in_cart = sql_query(sql)
 
         #new plan: return a tuple of 3 items
@@ -115,7 +125,7 @@ def checkout():
         return render_template('checkout.html', books=books_in_cart, privilege = my_user.get_privilege())
     pass
 
-@app.route('/remove',methods='POST')
+@app.route('/remove',methods=['POST'])
 def remove_from_cart():
     global my_user
     book_to_checkout =request.format['checkout_button']
@@ -153,7 +163,7 @@ def createuser():
     #if no: flash "user created" add in database
     pass
 
-@app.route('/admin/create_book', methods=['GET', 'POST'])
+@app.route('/createbook', methods=['GET', 'POST'])
 def create_book():
     global my_user
     if request.method == 'POST':
@@ -170,7 +180,7 @@ def create_book():
 
     return render_template('createbook.html', privilege = my_user.get_privilege)
 
-@app.route('/admin/delete_book', methods['POST'])
+@app.route('/deletebook', methods = ['POST'])
 def delete_book():
     global my_user
     if request.method == 'POST':
@@ -183,7 +193,7 @@ def delete_book():
         #return str(sku)
         return redirect(url_for('admin'))
 
-@app.route('/admin/get_statistics', methods['POST'])
+@app.route('/statistics', methods=['POST'])
 def get_statistics():
     global my_user
     sql = "select sum(num_times_rented) from status;"
@@ -192,9 +202,9 @@ def get_statistics():
     count_user = sql_query(sql)
     sql = "select avg(balance) from user;"
     avg_balance = sql_query(sql)
-    statistics = { booksrented : sum_nums
-                   balance : avg_balance
-                   users : count_user
+    statistics = { 'booksrented': sum_nums,
+                   'balance': avg_balance,
+                   'users': count_user
                  }
     return render_template('statistics.html', privilege = my_user.get_privilege, stats = statistics)
 
