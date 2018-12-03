@@ -81,7 +81,7 @@ def profile():
     else:
         user_id = my_user.get_id()
         print(user_id)
-        profile_info_sql = "select name, email, address from library.user where id = '{user_id}';".format(user_id = user_id)
+        profile_info_sql = "select name, email, address, balance from library.user where id = '{user_id}';".format(user_id = user_id)
         profile_info_list= sql_query(profile_info_sql)[0]
         #availability = 'unavailable' and
         books_sql = "select title, return_date from book b inner join status s on b.sku = s.book_sku where b.owner = {user_id};".format(user_id= user_id)
@@ -91,7 +91,7 @@ def profile():
         print(books_sql)
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
-        profile_info = {"name": profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2]}
+        profile_info = {'name': profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2], 'balance': profile_info_list[3]}
         return render_template('profile.html', profile_info = profile_info, books = books_info, privilege = my_user.get_privilege())
 
 @app.route('/adminpage', methods=['GET', 'POST'])
