@@ -77,7 +77,7 @@ def home():
             elif len(search_info) == 0:
                 return redirect(url_for('home'))
             print(search_info)
-            session['search_info'] = search_info
+            session['search_info'] = search_info[0]
             session['bookcount'] = count
             return redirect(url_for('book') )
             #return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
