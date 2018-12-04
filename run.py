@@ -155,12 +155,12 @@ def checkout():
         print(user_id)
         date = datetime.datetime.today().strftime('%m%d%Y')
         return_date = int(date) + 100000
-        sql = "update status s set start_date = '{date}' inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(date=date, user_id=user_id)
+        sql = "update status s set start_date = '{date}' from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(date=date, user_id=user_id)
         sql_execute(sql)
-        sql = "update status s set return_date = '{return_date}' from library.status inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(return_date=str(return_date), user_id=user_id)
+        sql = "update status s set return_date = '{return_date}' from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(return_date=str(return_date), user_id=user_id)
         sql_execute(sql)
         #b inner join library.cart c on b.cart_id = c.id where c.
-        sql = "select title, sku, return_date from library.book b inner join library.status s on s.book_sku = b.sku where cart_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+        sql = "select title, sku, return_date from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(user_id = user_id)  #sql query for finding user's books in their cart
         books_in_cart = sql_query(sql)
         print(books_in_cart)
         #new plan: return a tuple of 3 items
