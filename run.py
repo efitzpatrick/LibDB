@@ -191,9 +191,9 @@ def delete_book():
     if request.method == 'POST':
         #get sku from form
         sku = request.form['booksku'].strip()
-
+        print(sku)
         #update database
-        sql = "delete from book where id = '{sku}'".format(sku = sku)
+        sql = "delete from book where sku = '{sku}'".format(sku = sku)
         sql_execute(sql)
         #return str(sku)
         return redirect(url_for('admin'))
