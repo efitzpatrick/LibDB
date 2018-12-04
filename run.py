@@ -95,7 +95,8 @@ def book():
         print(booksku)
         sql = "select cart_id from library.user u where u.id = '{{user_id}}';".format(user_id=user_id)
         cart_id = sql_query(sql)
-        sql = "update book set cart_id = '{cart_id}' where sku = '{sku}';".format(cart_id=cart_id, sku=booksku)
+        #sql = "update book set cart_id = '{cart_id}' where sku = '{sku}';".format(cart_id=cart_id, sku=booksku)
+        sql = "Insert into cart(id, user_id, book_sku) VALUES ('{cart_id}', '{user_id}', '{sku}');".format(cart_id=cart_id, user_id=user_id,sku=booksku)
         sql_execute(sql)
         sql = "update status set availability = 'unavailable' where book_sku = '{sku}';".format(sku=booksku)
         sql_execute(sql)
@@ -157,7 +158,6 @@ def checkout():
         print(user_id)
         date = datetime.datetime.today().strftime('%m%d%Y')
         return_date = int(date) + 100000
-<<<<<<< HEAD
         #sql = "update library.status s set start_date = '{date}' from library.status inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(date=date, user_id=user_id)
         #sql_execute(sql)
         #sql = "update library.status s set return_date = '{return_date}' from library.status inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(return_date=str(return_date), user_id=user_id)
@@ -165,14 +165,6 @@ def checkout():
         #b inner join library.cart c on b.cart_id = c.id where c.
         #select title, sku from library.book b where b.cart_id = '{user_id}';
         sql = "select title, sku from library.book b inner join library.cart c on b.cart_id = c.id and c.user_id = {user_id};".format(user_id = user_id)  #sql query for finding user's books in their cart
-=======
-        sql = "update status s set start_date = '{date}' from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(date=date, user_id=user_id)
-        sql_execute(sql)
-        sql = "update status s set return_date = '{return_date}' from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(return_date=str(return_date), user_id=user_id)
-        sql_execute(sql)
-        #b inner join library.cart c on b.cart_id = c.id where c.
-        sql = "select title, sku, return_date from book b inner join cart c on b.cart_id = c.id and c.user_id = {user_id};".format(user_id = user_id)  #sql query for finding user's books in their cart
->>>>>>> 02b0b308d644880ec9eddd33611f7b5d433a3f8b
         books_in_cart = sql_query(sql)
         print(books_in_cart)
         #new plan: return a tuple of 3 items
