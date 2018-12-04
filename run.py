@@ -185,7 +185,7 @@ def create_book():
 
     return render_template('createbook.html', privilege = my_user.get_privilege)
 
-@app.route('/deletebook', methods = ['POST'])
+@app.route('/deletebook', methods = ['GET', 'POST'])
 def delete_book():
     global my_user
     if request.method == 'POST':
