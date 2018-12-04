@@ -197,6 +197,7 @@ def delete_book():
         sql_execute(sql)
         #return str(sku)
         return redirect(url_for('admin'))
+    return render_template('deletebook.html', privilege = my_user.get_privilege)
 
 @app.route('/statistics', methods=['POST'])
 def get_statistics():
