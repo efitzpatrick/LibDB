@@ -67,10 +67,18 @@ def home():
         error=None
         if request.method == 'POST':
             search = request.form['search_input']
-            search_sql = "select id from book where title = '{search}' or author = '{search}';".format(search = search)
+            search_sql = "select * from book where author like '%{search}%' or title like '%{search}%' and owner is null;".format(search= search)
             search_info = sql_query(search_sql)
-            return str(search_info)
+            count = len(search_info)
+            if len(search_info) >= 2:
+                search_info = search_info[0]
+            elif len(search_info) == 0:
+                return redirect(url_for('home'))
+            print(search_info)
+            return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
     return render_template('homeretry.html', error=error, privilege = my_user.get_privilege())
+
+@app.route('/book', methods=['GET', 'POST'])
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
