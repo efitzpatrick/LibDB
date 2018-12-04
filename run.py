@@ -98,7 +98,9 @@ def book():
         #sql = "update book set cart_id = '{cart_id}' where sku = '{sku}';".format(cart_id=cart_id, sku=booksku)
         sql = "Insert into cart(id, user_id, book_sku) VALUES ('{cart_id}', '{user_id}', '{sku}');".format(cart_id=cart_id, user_id=user_id,sku=booksku)
         sql_execute(sql)
-        sql = "update status set availability = 'unavailable' where book_sku = '{sku}';".format(sku=booksku)
+        #update status set availability = 'unavailable' where book_sku = '{sku}';
+        
+        sql = "update library.status set availability = 'unavailable' where id = 'available' and book_sku = '{sku}';".format(sku=booksku)
         sql_execute(sql)
         return redirect(url_for('checkout'))
     

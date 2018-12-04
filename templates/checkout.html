@@ -57,11 +57,13 @@
   <tbody>
       <ul>
        {% for key, sku in books %}
+       <tr>
         <td>{{key}}</td>   
         <td> 
                 <form action="" method="remove">
                  <input type="submit" name="checkout_button" class="btn btn-primary" value={{sku}}>  
                 </form></td>
+            </tr>
        {% endfor %}
       </ul>
   </tbody>
