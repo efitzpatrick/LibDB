@@ -1,3 +1,4 @@
+
 //Queries
 
 /* search book by title or author */
@@ -34,6 +35,7 @@ select id from user where privilege = 'admin'
 select id from book b inner join status s on b.sku = s.book_sku where b.owner = {current user_id} and availability = 'unavailable';
 
 /* all books in the user's cart */
+select id, return_date from book b inner join status s on b.sku = s.sku inner join cart c on b.cart_id = c.id where c.user_id = {current user_id} ;
 select sku from book b inner join cart c on b.cart_id = c.id and c.user_id = {user ID};
 
 

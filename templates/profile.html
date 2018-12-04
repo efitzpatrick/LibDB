@@ -190,12 +190,15 @@
     </tr>
   </thead>
   <tbody>
+        {% for book in books %}
+        <tr>
       <ul>
-       {% for book in books %}
         <td>{{book[0]}}</td>   
         <td>{{book[1]}}</td>  
-       {% endfor %}
+       
       </ul>
+    </tr>
+      {% endfor %}
   </tbody>
 </table>
                       

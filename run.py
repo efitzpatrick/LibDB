@@ -86,13 +86,13 @@ def profile():
         #print(profile_info_list)
         #availability = 'unavailable' and
         #select title, return_date from book b inner join status s on b.sku = s.book_sku where b.owner = {user_id};
-        books_sql = "select title, return_date from library.book b inner join library.status s on b.sku = s.book_sku where b.owner = {user_id};".format(user_id= user_id)
+        books_sql = "select title, return_date from library.book b inner join library.status s on b.sku = s.book_sku where b.owner = '{user_id}';".format(user_id= user_id)
         books_info = sql_query(books_sql)
-        #print(books_info)
-        print(sql_query("select title, return_date, owner, availability from library.book b inner join library.status s on b.sku = s.book_sku;"))
+        print(books_info)
+        #print(sql_query("select title, return_date, owner, availability from library.book b inner join library.status s on b.sku = s.book_sku;"))
         result = str(profile_info_list), " ", str(books_info)
         #print(books_info)
-        print(sql_query("select title from library.book b where b.owner = {user_id};".format(user_id=user_id)))
+        print("{user_id};".format(user_id=user_id))
         #return str(result)
         # ("(u'Ellie Fitzpatrick', u'eef33@case.edu', u'1234 Juniper rd, Cleveland, OH')", ' ', '[]')
         profile_info = {'name': profile_info_list[0], 'email': profile_info_list[1], 'address': profile_info_list[2], 'balance': profile_info_list[3]}
