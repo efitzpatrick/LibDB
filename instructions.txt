@@ -1,0 +1,7 @@
+run virtual env
+install flask
+install mysql.connector
+code to run:
+$ msqyl < libraryproject.sql
+$ FLASK_APP = run.py
+$ flask run

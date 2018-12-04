@@ -1,6 +1,7 @@
 import configparser
 from flask import Flask, render_template, redirect, url_for, request, flash, session
 import mysql.connector
+import datetime as datetime
 from User import User
 
 # Read configuration from file.
@@ -52,6 +53,7 @@ def login():
             user_id_sql = "select id, privilege from library.user where email='{email}';".format(email=email)
             user_id_result = sql_query(user_id_sql)[0]
             user_id = user_id_result[0]
+            session['user_id'] = user_id
             privilege = user_id_result[1]
             my_user = User(user_id, email, privilege)
             return redirect(url_for('home'))
@@ -84,22 +86,21 @@ def home():
 @app.route('/book', methods=['GET', 'POST'])
 def book():
     global my_user
-    if request.method == 'post':
-        print("jjj")
     search_info = session['search_info']
     count = session['bookcount']
+    if request.method == 'POST':
+        user_id = session['user_id']
+        print(user_id)
+        booksku = search_info[1]
+        print(booksku)
+        sql = "update book set cart_id = '{user_id}' where sku = '{sku}';".format(user_id=user_id, sku=booksku)
+        sql_execute(sql)
+        sql = "update status set availability = 'unavailable' where book_sku = '{sku}';".format(sku=booksku)
+        sql_execute(sql)
+        return redirect(url_for('checkout'))
+    
     return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
-
-@app.route('/addtocart', methods=['GET', 'POST'])
-def addtocart():
-    global my_user
-    user_id = my_user.get_id
-    booksku = request.form['booksku']
-    sql = "update book set cart_id = {user_id} where sku = {sku};".format(user_id=user_id, sku=booksku)
-    sql_execute(sql)
-    sql = "update status set availability = 'unavailable' where book_sku = {sku};".format(sku=booksku)
-    sql_execute(sql)
-    return redirect(url_for('checkout'))
+    
 
 
 
@@ -151,9 +152,17 @@ def checkout():
         return redirect(url_for('login'))
     else:
         user_id = my_user.get_id()
-        sql = "select title, return_date, sku from book b inner join status s on b.sku = s.book_sku inner join cart c on b.cart_id = c.id where c.user_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
+        print(user_id)
+        date = datetime.datetime.today().strftime('%m%d%Y')
+        return_date = int(date) + 100000
+        sql = "update status s set start_date = '{date}' inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(date=date, user_id=user_id)
+        sql_execute(sql)
+        sql = "update status s set return_date = '{return_date}' from library.status inner join book b on s.book_sku = b.sku where b.cart_id = {user_id};".format(return_date=str(return_date), user_id=user_id)
+        sql_execute(sql)
+        #b inner join library.cart c on b.cart_id = c.id where c.
+        sql = "select title, sku, return_date from library.book b inner join library.status s on s.book_sku = b.sku where cart_id = '{user_id}';".format(user_id = user_id)  #sql query for finding user's books in their cart
         books_in_cart = sql_query(sql)
-
+        print(books_in_cart)
         #new plan: return a tuple of 3 items
         #tuple should be (book.title, book.duedate, book.sku)
         #return this as a list, so we can iterate through it.
