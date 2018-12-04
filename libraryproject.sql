@@ -4,6 +4,7 @@ use library;
 DROP TABLE IF EXISTS `user`;
 create table user(
   id varchar(20) not null,
+  cart_id varchar(20) not null,
   email varchar(255) not null,
   address varchar(255) not null,
   name varchar(255) not null,
@@ -13,13 +14,13 @@ create table user(
   balance numeric(4,2) not null DEFAULT 0);
 
 
-INSERT INTO user(id, email, address, name, username, password, privilege, balance) VALUES
-    ('10000', 'libadmin@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin1', 'libadmin', 'libraryrox', 'admin', 0),
-    ('10001', 'libadmin2@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin2', 'libadmin2', 'libraryrox', 'admin', 0),
-    ('12345', 'jxk807@case.edu', '1728 E 116th st, Cleveland, OH', 'Jae Yong Kim', 'jxk807', 'mypwd123', 'student', 10.50),
-    ('12346', 'eef33@case.edu', '1234 Juniper rd, Cleveland, OH', 'Ellie Fitzpatrick', 'eef33', 'password123', 'student', 0),
-    ('12347', 'hxk443@case.edu', '1234 Murray Hill rd, Cleveland, OH', 'Haroon Khazi', 'hxk443', 'password125', 'student', 30),
-    ('12348', 'jmn101@case.edu', '11474 Euclid Ave Cleveland, OH', 'Jimmy Nagy', 'jmn101', 'password124', 'student', 20.12);
+INSERT INTO user(id, cart_id, email, address, name, username, password, privilege, balance) VALUES
+    ('10000', '000100', 'libadmin@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin1', 'libadmin', 'libraryrox', 'admin', 0),
+    ('10001', '000101','libadmin2@case.edu', '1343 Euclid Ave Cleveland, OH', 'admin2', 'libadmin2', 'libraryrox', 'admin', 0),
+    ('12345', '000102','jxk807@case.edu', '1728 E 116th st, Cleveland, OH', 'Jae Yong Kim', 'jxk807', 'mypwd123', 'student', 10.50),
+    ('12346', '000103','eef33@case.edu', '1234 Juniper rd, Cleveland, OH', 'Ellie Fitzpatrick', 'eef33', 'password123', 'student', 0),
+    ('12347', '000104','hxk443@case.edu', '1234 Murray Hill rd, Cleveland, OH', 'Haroon Khazi', 'hxk443', 'password125', 'student', 30),
+    ('12348', '000105','jmn101@case.edu', '11474 Euclid Ave Cleveland, OH', 'Jimmy Nagy', 'jmn101', 'password124', 'student', 20.12);
 
 
 DROP TABLE IF EXISTS `cart`;
