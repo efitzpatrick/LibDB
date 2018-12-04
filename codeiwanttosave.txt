@@ -111,3 +111,11 @@
                           </ul>
                         </div>
                 </nav>
+
+
+                <div class="form">
+                            <input name="id" class="form-control" type="hidden" placeholder={{book[1]}}>
+                          </div>
+                    <form action="addtocart" method="post">
+                            <input class="button" type="submit" value={{book[1]}} >
+                        </form>

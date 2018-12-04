@@ -1,5 +1,5 @@
 import configparser
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 import mysql.connector
 from User import User
 
@@ -75,10 +75,33 @@ def home():
             elif len(search_info) == 0:
                 return redirect(url_for('home'))
             print(search_info)
-            return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
+            session['search_info'] = search_info
+            session['bookcount'] = count
+            return redirect(url_for('book') )
+            #return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
     return render_template('homeretry.html', error=error, privilege = my_user.get_privilege())
 
 @app.route('/book', methods=['GET', 'POST'])
+def book():
+    global my_user
+    if request.method == 'post':
+        print("jjj")
+    search_info = session['search_info']
+    count = session['bookcount']
+    return render_template('book.html', privilege = my_user.get_privilege(), book=search_info, count=count)
+
+@app.route('/addtocart', methods=['GET', 'POST'])
+def addtocart():
+    global my_user
+    user_id = my_user.get_id
+    booksku = request.form['booksku']
+    sql = "update book set cart_id = {user_id} where sku = {sku};".format(user_id=user_id, sku=booksku)
+    sql_execute(sql)
+    sql = "update status set availability = 'unavailable' where book_sku = {sku};".format(sku=booksku)
+    sql_execute(sql)
+    return redirect(url_for('checkout'))
+
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
